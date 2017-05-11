@@ -14,25 +14,23 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                                <li><a href="Proyecto.html">Proyectos</a></li>
-                                <li><a href="#">Cargos</a></li>
+                                <li><a href="#/Proyectos">Proyectos</a></li>
+                                <li><a href="#/Cargos">Cargos</a></li>
                                 <li><a href="#">Integrantes</a></li>
                                 <li><a href="#">Actividades</a></li>
                                 <li><a href="#">Tareas</a></li>
                                 <li><a href="#">Recursos</a></li>
                                 <li><a href="#">Estado Proyectos</a></li>
                                 <li><a href="#">Reuniones</a></li>
-                                <li><button type="button" class="btn btn-danger dropdown-toggle"
-                                            data-toggle="dropdown" id="botonsalir">
-                                        Opciones <span class="caret"></span>
-                                    </button>
+                                <li>
+                            <ul class="posicionBtnSalirIntegrante">     
 
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Cerrar Sesion</a></li>
-                                        <li><a href="#">Cambiar de cuenta</a></li>
-                                        <li><a href="#">Salir</a></li>
-                                    </ul>
-                                </li>
+                                <div ng-controller="CtlLogIn">
+                                    <button id="btnLogOut" class="btn btn-danger"
+                                            ng-click="logOut()">Cerrar Sesion</button>       
+                                </div>      
+                            </ul>
+                        </li>
 
                         </div>
                         <!-- /.navbar-collapse -->

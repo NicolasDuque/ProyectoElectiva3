@@ -1,0 +1,142 @@
+<label>GESTION PRODUCCCION</label>
+<br>
+
+<form  method="post" role="form" name="formulario" >
+    <div class="form-group">
+        <label>
+            Codigo
+        </label>
+        <input  type="number" class="form-control"
+               placeholder="codigo " ng-model="produccion.codigo" required>
+    </div> 
+    <div class="form-group">
+        <label >
+            Fecha
+        </label>
+        <input   type="date" class="form-control"
+               placeholder="fecha" 
+               ng-model="produccion.fecha" required>
+    </div>
+    <div ng-init="listarForanea2()" class="form-group">
+        <label>
+            cerveza
+        </label>
+        
+        <select  ng-model="produccion.cervezaId" data-ng-options="c.nombre as c.nombre for c in listadoForaneas2" required></select>
+    </div> 
+    
+    <div ng-init="listarForanea1()" class="form-group">
+        <label>
+            presentacion
+        </label>
+        
+        <select ng-model="produccion.presentacionId" data-ng-options="p.codigo as p.codigo for p in listadoForaneas1" required></select>
+    </div> 
+    
+    <div class="form-group">
+        <label>
+            Comentario
+        </label>
+        
+        <textarea placeholder="comentario" onkeypress="return soloLetras(event);" ng-model="produccion.comentario" class="form-control" required></textarea>
+    </div> 
+    
+    
+
+    
+    <button class="btn btn-primary" type="submit" ng-click="create(formulario)" >
+        Agregar
+    </button>
+    <button class="btn btn-primary" type="button" ng-click="modificarProduccion(formulario)">
+        Modificar
+    </button>
+</form>
+<br>
+<form role="form" name="formulario2" ng-submit="buscarProduccion(formulario2)">
+    <div class="form-group" >
+        <label>
+            Codigo
+        </label>
+        <input  type="number" class="form-control"
+               placeholder="codigo a buscar" 
+               ng-model="produccion.codigo" required>
+    </div>
+    <button class="btn btn-primary" type="submit">
+        Buscar
+    </button>
+    <button class="btn btn-primary" type="button" ng-click="eliminarProduccion(formulario2)">
+        Eliminar
+    </button>
+</form>
+
+
+
+
+<div class="panel panel-primary">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                    
+                    <input type="text" class="form-control" placeholder="Buscar produccion" ng-model="filtrar">
+                    
+                </div>
+            </div>
+
+
+<div class="panel-body">
+                <table  class="table table-striped">
+                    <thead>
+                        <tr>
+                           <th class="seleccionable">
+                                    <a>Codigo</a>
+                                    
+                                    
+                                </th> 
+                                
+                                
+                            <th class="seleccionable">
+                                    <a>Fecha</a>
+                                   
+                                    
+                                </th>   
+                            
+                            <th class="seleccionable">
+                                    <a>Cerveza</a>
+                                   
+                                    
+                                </th>    
+                            
+                                
+                             <th class="seleccionable">
+                                    <a>Presentacion</a>
+                                   
+                                    
+                                </th>  
+                                
+                              <th class="seleccionable">
+                                    <a>Comentario</a>
+                                   
+                                    
+                                </th>     
+                                
+                            
+                                
+                                
+                        </tr>
+                    </thead>
+                    <tbody ng-init="listarProducciones2()" >
+                        <tr  ng-click="getSelectedRow()" ng-repeat="obj in listadoProducciones |
+                            filter:filtrar ">
+                            <td>{{obj.codigo}}</td>
+                            <td>{{obj.fecha}}</td>
+                             <td>{{obj.cervezaId}}</td>
+                             <td>{{obj.presentacionId}}</td>
+                             <td>{{obj.comentario}}</td>
+                             
+                        </tr>
+                    </tbody>
+                    
+                    
+                </table>
+            </div>

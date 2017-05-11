@@ -11,23 +11,23 @@ app.controller('CtlValidate', function ($scope, $window) {
      * para saber si muestra o no la interfaz grafica*/
 
     $scope.sesion = sessionStorage.getItem("session");
-
+    
     /*Luego se valida para saber si se redirecciona o no*/
-    if (!$scope.sesion) {
+    if (!$scope.sesion && $scope.sesion==="Integrante") {
         $window.location.href = 'http://localhost:8888/index.html';
     }
 });
 app.config(function ($routeProvider) {
     $routeProvider
 
-            .when('/Estudiantes', {
-                //controller: 'controladorEstudiantes',
-                controller: 'controladorEstudiante',
-                templateUrl: 'estudiante.html'
+            .when('/Proyectos', {
+                //controller: 'controladorProyectos',
+                controller: 'controladorProyectos',
+                templateUrl: 'Director/proyectos.html'
             })
-            .when('/empleados', {
-                controller: 'ControladorFiltro',
-                templateUrl: 'filters.html'
+            .when('/Cargos', {
+                controller: 'controladorCargos',
+                templateUrl: 'Director/cargos.html'
             })
             .otherwise({
                 redirectTo: '/'

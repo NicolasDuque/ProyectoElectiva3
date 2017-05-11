@@ -6,7 +6,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 var formidable = require('formidable');
 var db = require('./static/dao/db');
 var login = require('./static/dao/daoLogin');
-
+var proyecto = require('./static/dao/daoProyectos')
 var server;
 
 
@@ -23,5 +23,13 @@ function configurarServidor() {
 app.post('/login',function(entrada,respuesta){
     login.validar(entrada,respuesta);
 });
+app.post('/registrousuario',function(entrada,respuesta){
+    login.registrarUsuario(entrada,respuesta);
+});
+
+app.post('/crearProyecto',function(entrada,respuesta){
+    proyecto.crearProyecto(entrada,respuesta);
+});
+
 exports.configurarServidor = configurarServidor;
 
