@@ -37,6 +37,26 @@ app.get('/listadoForaneaProyectos',function(entrada,respuesta){
 });
 
 
+app.post('/modificarProyecto',function(entrada,respuesta){
+    proyecto.modificarProyecto(entrada,respuesta);
+});
+
+
+app.post('/eliminarProyecto',function(entrada,respuesta){
+    proyecto.eliminarProyecto(entrada,respuesta);
+});
+
+app.post('/buscarProyecto',function(entrada,respuesta){
+    proyecto.buscarProyecto(entrada,respuesta);
+});
+
+app.get('/listadoProyectos',function(entrada,respuesta){
+    proyecto.listadoProyectos(respuesta);
+});
+
+
+
+
 
 
 exports.configurarServidor = configurarServidor;

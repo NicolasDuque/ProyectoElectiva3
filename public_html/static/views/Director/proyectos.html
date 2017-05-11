@@ -45,9 +45,82 @@
     
     
 </form>
+
 <br>
+<form role="form" name="formulario2" ng-submit="buscarProyecto(formulario2)">
+    <div class="form-group" >
+        <label>
+            Nombre
+        </label>
+        <input  type="text" class="form-control"
+               placeholder="nombre a buscar" 
+               ng-model="proyecto.nombreBuscar" required>
+    </div>
+    <button class="btn btn-primary" type="submit">
+        Buscar
+    </button>
+    <button class="btn btn-primary" type="button" ng-click="eliminarProyecto(formulario2)">
+        Eliminar
+    </button>
+</form>
 
 
 
+<div class="panel panel-primary">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                    
+                    <input type="text" class="form-control" placeholder="Buscar proyecto" ng-model="filtrar">
+                    
+                </div>
+            </div>
 
 
+<div class="panel-body">
+                <table  class="table table-striped">
+                    <thead>
+                        <tr>
+                           <th class="seleccionable">
+                                    <a>Nombre</a>
+                                    
+                                    
+                                </th> 
+                                
+                                
+                            <th class="seleccionable">
+                                    <a>Inicio</a>
+                                   
+                                    
+                                </th>   
+                            
+                            <th class="seleccionable">
+                                    <a>Fin</a>
+                                   
+                                    
+                                </th>    
+                                
+                            <th class="seleccionable">
+                                    <a>Etapa</a>
+                                   
+                                    
+                                </th>    
+                                
+                                
+                        </tr>
+                    </thead>
+                    <tbody ng-init="listarProyectos()" >
+                        <tr  ng-click="getSelectedRow()" ng-repeat="obj in listadoProyectos |
+                            filter:filtrar ">
+                            <td>{{obj.nombre}}</td>
+                            <td>{{obj.inicio}}</td>
+                             <td>{{obj.fin}}</td>
+                             <td>{{obj.etapa}}</td>
+                             
+                        </tr>
+                    </tbody>
+                    
+                    
+                </table>
+            </div>

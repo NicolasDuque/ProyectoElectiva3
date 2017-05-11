@@ -77,7 +77,7 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
-    this.eliminar = function (cerveza) {
+    this.eliminar = function (proyecto) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         
@@ -85,10 +85,10 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
         
         var promise = $http({
             method: "post",
-            url: "/eliminarCerveza",
+            url: "/eliminarProyecto",
             data: $httpParamSerializerJQLike({
                 
-                nombreBuscar: cerveza.nombre}),
+                nombreBuscar: proyecto.nombreBuscar}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
             /*Todos los datos se almacenan en .data*/
@@ -101,18 +101,19 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
-    this.buscar = function (cerveza) {
+    this.buscar = function (proyecto) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         
         
         
+        
         var promise = $http({
             method: "post",
-            url: "/buscarCerveza",
+            url: "/buscarProyecto",
             data: $httpParamSerializerJQLike({
                 
-                nombreBuscar: cerveza.nombre
+                nombreBuscar: proyecto.nombreBuscar
                }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -128,8 +129,8 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
     };
     this.listar=function(){
         var promise = $http({
-            method: "post",
-            url: "/listadoCerveza",
+            method: "get",
+            url: "/listadoProyectos",
             data: $httpParamSerializerJQLike({
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}

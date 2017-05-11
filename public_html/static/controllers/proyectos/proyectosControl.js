@@ -43,6 +43,7 @@ app.controller('controladorProyectos', function ($scope, $window, proyectosServi
                     alert("PROYECTO REGISTRADO!");
                     
                     $scope.proyecto="";
+                    $scope.listarProyectos();
                 }else{
                     alert("EL PROYECTO YA SE ENCUENTRA REGISTRADO!");
                 }
@@ -64,11 +65,11 @@ app.controller('controladorProyectos', function ($scope, $window, proyectosServi
             
             /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
              * el cual esta asociado a los input*/
-            proyectosService.modificar($scope.cerveza).then(function (response) {
+            proyectosService.modificar($scope.proyecto).then(function (response) {
                 if(response.codigo===1){
                     alert("DATOS MODIFICADOS CON EXITO!");
                     $scope.proyecto="";
-                    
+                    $scope.listarProyectos();
                     
                 }else{
                     alert("ERROR AL MODIFICAR LOS DATOS");
@@ -78,17 +79,26 @@ app.controller('controladorProyectos', function ($scope, $window, proyectosServi
             alert("debe diligenciar toda la informacion!");
         }
     };
-    $scope.buscarCerveza = function (form) {
+    $scope.buscarProyecto = function (form) {
        
 
 
         if (form.$valid) {
             /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
              * el cual esta asociado a los input*/
-            cervezaService.buscar($scope.cerveza).then(function (response) {
+            proyectosService.buscar($scope.proyecto).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if(response.codigo===1){
-                    $scope.cerveza=response;
+                    
+                    var obj = {
+                        nombre:response.nombre,
+                        inicio:new Date(response.inicio),
+                        fin:new Date(response.fin),
+                        etapa:response.etapa
+                    };
+                    
+                    
+                   $scope.proyecto=obj;
                     
                 }else{
                     alert("NO DATA FOUND!");
@@ -100,19 +110,19 @@ app.controller('controladorProyectos', function ($scope, $window, proyectosServi
             alert("debe ingresar un nombre a buscar");
         }
     };
-    $scope.eliminarCerveza = function (form) {
+    $scope.eliminarProyecto = function (form) {
         
 
 
         if (form.$valid) {
             /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
              * el cual esta asociado a los input*/
-            cervezaService.eliminar($scope.cerveza).then(function (response) {
+            proyectosService.eliminar($scope.proyecto).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if(response.codigo===1){
                     alert("EXITO");
                     
-                    $scope.listarCervezas();
+                    $scope.listarProyectos();
                     
                 }else{
                     alert("ERROR!");
@@ -125,11 +135,25 @@ app.controller('controladorProyectos', function ($scope, $window, proyectosServi
     };
     
     
-    $scope.listarCervezas=function(){
+    $scope.listarProyectos=function(){
       
-      cervezaService.listar().then(function(response){
+      proyectosService.listar().then(function(response){
           
-          $scope.listadoCervezas=response;
+          
+          var entrada = [];
+          
+          
+          
+          for(var i=0;i<response.length;i++){
+              
+              
+              
+              entrada.push({nombre:response[i].nombre,inicio:new Date(response[i].inicio),fin:new Date(response[i].fin),etapa:response[i].etapa});
+              
+          }
+          
+          
+          $scope.listadoProyectos=entrada;
           
       });
         
@@ -138,7 +162,8 @@ app.controller('controladorProyectos', function ($scope, $window, proyectosServi
     
     $scope.getSelectedRow=function(){
         $scope.selected = this.obj;
-        $scope.cerveza=$scope.selected;
+        $scope.proyecto=$scope.selected;
+        $scope.proyecto.nombreBuscar=$scope.selected.nombre
     };
     
     
