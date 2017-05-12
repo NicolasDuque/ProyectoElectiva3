@@ -12,7 +12,7 @@
 /*app.controller(nombre de la funcion)  ($scope, nombre de los servicios a utilizar)*/
 /*$windows servicio por defecto para poder utilizar refresco de pagina y redireccionamiento*/
 /*logInService, nombre del servicio que contiene la promesa. */
-app.controller('controladorCargos', function ($scope, $window, cargosService) {
+app.controller('controladorCargos', function ($scope, $window, cargoService) {
 
 
     /*info*/
@@ -37,10 +37,8 @@ app.controller('controladorCargos', function ($scope, $window, cargosService) {
 
     /*Se define una funcion en el controlador*/
     $scope.crearCargo = function (form) {
-        
-            if(form.$valid){
-                
-                cargosService.guardar($scope.cargo).then(function (response) {
+            if(form.$valid){  
+                cargoService.guardarCargo($scope.cargo).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if(response.codigo===1){
                     alert("CARGO REGISTRADO!");
@@ -48,42 +46,81 @@ app.controller('controladorCargos', function ($scope, $window, cargosService) {
                     $scope.cargo="";
                 }else{
                     alert("EL CARGO YA SE ENCUENTRA REGISTRADO!");
-                }
-                
-                
+                }     
             });
             }else{
                 alert("debe diligenciar toda la informacion");
-            }
-              
-            
-            
+            }   
     };
-    
-    
-    
-    $scope.listarProyectos=function(){
-      
-      cargosService.listarProyectos().then(function(response){
+    $scope.modificarCargo = function (form) {
+        if (form.$valid) { 
+            /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+             * el cual esta asociado a los input*/
+            cargoService.modificarCargo($scope.cargo).then(function (response) {
+                if(response.codigo===1){
+                    alert("DATOS MODIFICADOS CON EXITO!");
+                    $scope.cargo="";
+                    
+                    
+                }else{
+                    alert("ERROR AL MODIFICAR LOS DATOS");
+                }
+            });
+        } else {
+            alert("debe diligenciar toda la informacion!");
+        }
+    };
+    $scope.buscarCargo = function (form) {
+    if (form.$valid) {
+            /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+             * el cual esta asociado a los input*/
+            cargoService.buscarCargo($scope.cargo).then(function (response) {
+                /*El resultado de la promesa se recibe por parametro*/
+                if(response.codigo===1){
+                    $scope.cargo=response;
+                    
+                }else{
+                    alert("NO DATA FOUND!");
+                }        
+            });
+        } else {
+            alert("debe ingresar un nombre a buscar");
+        }
+    }; 
+    $scope.listarCargo=function(){ 
+      cargoService.listarCargo().then(function(response){
           
-          $scope.listadoProyectos=response;
-          
-      });
+          $scope.listarCargo=response;
+      });     
+    };
+    $scope.eliminarCargo = function (form) {
         
+        if (form.$valid) {
+            /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+             * el cual esta asociado a los input*/
+            cargoService.eliminarCargo($scope.cargo).then(function (response) {
+                /*El resultado de la promesa se recibe por parametro*/
+                if(response.codigo===1){
+                    alert("EXITO");
+                    
+                    $scope.listarCargo;
+                    
+                }else{
+                    alert("ERROR!");
+                }
+                
+            });
+        } else {
+            alert("debe ingresar un nombre a buscar!");
+        }
     };
     
-    
+    $scope.getSelectedRow=function(){
+        $scope.selected = this.obj;
+        $scope.cargo=$scope.selected;
+    };
     
     
     
 
 });
-
-
-
-
-
-
-
-
-
