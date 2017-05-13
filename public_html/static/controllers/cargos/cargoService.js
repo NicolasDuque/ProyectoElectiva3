@@ -40,7 +40,8 @@ app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
                 nombre: cargo.nombre,
                 descripcion: cargo.descripcion,
                 horario: cargo.horario,
-                salario: cargo.salario
+                salario: cargo.salario,
+                proyectoId:cargo.proyecto_id
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -145,4 +146,32 @@ app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
+    
+    
+    this.listarProyectos = function () {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        
+        
+        
+        var promise = $http({
+            method: "get",
+            url: "/listarForaneaCargos",
+            data: $httpParamSerializerJQLike({
+                
+       
+               }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+            alert(response.statusText);
+        });
+
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
+    
 });

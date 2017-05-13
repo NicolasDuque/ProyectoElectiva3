@@ -16,53 +16,55 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
 
 
     /*info*/
-    $scope.cargo="";
-    
-    $scope.dias = [
-        
-        {opcion:"lunes"},
-        {opcion:"martes"},
-        {opcion:"miercoles"},
-        {opcion:"jueves"},
-        {opcion:"viernes"},
-        {opcion:"sabado"},
-        {opcion:"domingo"}
-        
-    ];
-    
+    $scope.cargo = "";
 
-    $scope.listadoCargos;
-    
-            
+    $scope.dias = [
+
+        {opcion: "lunes"},
+        {opcion: "martes"},
+        {opcion: "miercoles"},
+        {opcion: "jueves"},
+        {opcion: "viernes"},
+        {opcion: "sabado"},
+        {opcion: "domingo"}
+
+    ];
+
+
+    $scope.listadoCargo;
+
+
 
     /*Se define una funcion en el controlador*/
     $scope.crearCargo = function (form) {
-            if(form.$valid){  
-                cargoService.guardarCargo($scope.cargo).then(function (response) {
+
+        console.log($scope.cargo);
+        if (form.$valid) {
+            cargoService.guardarCargo($scope.cargo).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
-                if(response.codigo===1){
+                if (response.codigo === 1) {
                     alert("CARGO REGISTRADO!");
-                    
-                    $scope.cargo="";
-                }else{
+
+                    $scope.cargo = "";
+                } else {
                     alert("EL CARGO YA SE ENCUENTRA REGISTRADO!");
-                }     
+                }
             });
-            }else{
-                alert("debe diligenciar toda la informacion");
-            }   
+        } else {
+            alert("debe diligenciar toda la informacion");
+        }
     };
     $scope.modificarCargo = function (form) {
-        if (form.$valid) { 
+        if (form.$valid) {
             /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
              * el cual esta asociado a los input*/
             cargoService.modificarCargo($scope.cargo).then(function (response) {
-                if(response.codigo===1){
+                if (response.codigo === 1) {
                     alert("DATOS MODIFICADOS CON EXITO!");
-                    $scope.cargo="";
-                    
-                    
-                }else{
+                    $scope.cargo = "";
+
+
+                } else {
                     alert("ERROR AL MODIFICAR LOS DATOS");
                 }
             });
@@ -70,57 +72,110 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
             alert("debe diligenciar toda la informacion!");
         }
     };
+
     $scope.buscarCargo = function (form) {
-    if (form.$valid) {
-            /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+
+
+
+        if (form.$valid) {
+            /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
+             * lo va haer usted que hotas  ? 
              * el cual esta asociado a los input*/
             cargoService.buscarCargo($scope.cargo).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
-                if(response.codigo===1){
-                    $scope.cargo=response;
-                    
-                }else{
+                if (response.codigo === 1) {
+
+                    var obj = {
+                        nombre: response.nombre,
+                        descripcion: response.descripcion,
+                        proyectoId: response.proyecto_id,
+                        horario: response.horario,
+                        salario: response.salario
+                    };
+                    /*corra nuevamente...deje guardar la proxima*/
+                    $scope.cargo = obj;
+                    console.log($scope.cargo);
+
+                } else {
                     alert("NO DATA FOUND!");
-                }        
+                }
+
+
             });
         } else {
             alert("debe ingresar un nombre a buscar");
         }
-    }; 
-    $scope.listarCargo=function(){ 
-      cargoService.listarCargo().then(function(response){
-          
-          $scope.listarCargo=response;
-      });     
     };
+
+
+
+   /* $scope.listarCargo = function () {
+
+        cargoService.listarCargo().then(function (response) {
+
+
+            var entrada = [];
+
+
+
+            for (var i = 0; i < response.length; i++) {
+
+
+
+                entrada.push({nombre: response[i].nombre, descripcion:response[i].descripcion, proyectoId: response[i].proyectoId, horario: response[i].horario, salario: response[i].salario});
+
+            }
+
+
+            $scope.listadoCargo = entrada;
+
+        });
+
+    };*/
+    
     $scope.eliminarCargo = function (form) {
-        
+
         if (form.$valid) {
             /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
              * el cual esta asociado a los input*/
             cargoService.eliminarCargo($scope.cargo).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
-                if(response.codigo===1){
+                if (response.codigo === 1) {
                     alert("EXITO");
-                    
+
                     $scope.listarCargo;
-                    
-                }else{
+
+                } else {
                     alert("ERROR!");
                 }
-                
+
             });
         } else {
             alert("debe ingresar un nombre a buscar!");
         }
     };
-    
-    $scope.getSelectedRow=function(){
+
+    $scope.getSelectedRow = function () {
         $scope.selected = this.obj;
-        $scope.cargo=$scope.selected;
+        $scope.cargo = $scope.selected;
     };
-    
-    
-    
+
+
+
+    $scope.listarForaneaProyectos = function () {
+
+
+        /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+         * el cual esta asociado a los input*/
+        cargoService.listarProyectos().then(function (response) {
+            $scope.listadoProyectos = response;
+
+        });
+
+    };
+
+
+
+
 
 });

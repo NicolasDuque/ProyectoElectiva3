@@ -7,49 +7,116 @@
             Nombre
         </label>
         <input  type="text" class="form-control"
-               placeholder="Nombre " ng-model="cargo.nombre" required>
+                placeholder="Nombre " ng-model="cargo.nombre" required>
     </div> 
     <div class="form-group">
         <label >
             Descripcion:
         </label>
-        <textarea ng-model="cargo.descripcion" placeholder="Descripcion" required></textarea>
+        <input ng-model="cargo.descripcion" placeholder="Descripcion" class="form-control" required>
     </div>
-    <div ng-init="listarProyectos()" class="form-group">
+    <div ng-init="listarForaneaProyectos()" class="form-group">
         <label>
             Proyecto
         </label>
-        
-        <select  ng-model="cargo.proyecto_id" data-ng-options="p.id as p.nombre for p in listadoProyectos" required></select>
+
+        <select  ng-model="cargo.proyecto_id" data-ng-options="p.id as p.nombre for p in listadoProyectos" class="form-control" required></select>
     </div> 
-    
+
     <div  class="form-group">
         <label>
             Horario
         </label>
-        
-        <select  ng-model="cargo.horario" data-ng-options="d.opcion as d.opcion for d in dias" required></select>
+
+        <select  ng-model="cargo.horario" data-ng-options="d.opcion as d.opcion for d in dias" class="form-control" required></select>
     </div> 
-    
-    
-    
+
+
+
     <div  class="form-group">
         <label>
             Salario
         </label>
-        
-        <input step="any" type="number" placeholder="salario" ng-model="cargo.salario" required>
-    </div> 
-    
-    
-    
-    
 
-    
-    <button class="btn btn-primary" type="submit" ng-click="create(formulario)" >
+        <input step="any" type="number" placeholder="salario" ng-model="cargo.salario" class="form-control" required>
+    </div> 
+
+
+
+
+
+
+    <button class="btn btn-primary" type="submit" ng-click="crearCargo(formulario)" >
         Agregar
     </button>
-    <button class="btn btn-primary" type="button" ng-click="modificarProduccion(formulario)">
+    <button class="btn btn-primary" type="button" ng-click="modificarCargo(formulario)">
         Modificar
     </button>
+
+
 </form>
+
+
+<div class="panel panel-primary">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-search"></i>
+        </span>
+
+        <input type="text" class="form-control" placeholder="Buscar proyecto" ng-model="filtrar">
+
+    </div>
+</div>
+
+
+<div class="panel-body">
+    <table  class="table table-striped">
+        <thead>
+            <tr>
+                <th class="seleccionable">
+                    <a>Nombre</a>
+
+
+                </th> 
+
+
+                <th class="seleccionable">
+                    <a>descripcion</a>
+
+
+                </th>   
+
+                <th class="seleccionable">
+                    <a>Proyecto</a>
+
+
+                </th>    
+
+                <th class="seleccionable">
+                    <a>Horario</a>
+
+
+                </th>    
+                <th class="seleccionable">
+                    <a>Etapa</a>
+
+
+                </th>  
+
+            </tr>
+        </thead>
+        <tbody ng-init="listarCargo()" >
+            <tr  ng-click="getSelectedRow()" ng-repeat="obj in listadoCargo|
+                            filter:filtrar ">
+                <td>{{obj.nombre}}</td>
+                <td>{{obj.descripcion}}</td>
+                <td>{{obj.proyectoId}}</td>
+                <td>{{obj.horario}}</td>
+                <td>{{obj.salario}}</td>
+
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>
