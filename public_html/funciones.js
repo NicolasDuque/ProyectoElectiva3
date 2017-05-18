@@ -50,10 +50,44 @@ app.post('/buscarProyecto',function(entrada,respuesta){
     proyecto.buscarProyecto(entrada,respuesta);
 });
 
-app.get('/listadoProyectos',function(entrada,respuesta){
-    proyecto.listadoProyectos(respuesta);
+app.post('/listadoProyectos',function(entrada,respuesta){
+    proyecto.listadoProyectos(entrada,respuesta);
 });
 
+
+
+
+
+app.post('/crearCargo',function(entrada,respuesta){
+    cargo.crearCargo(entrada,respuesta);
+});
+
+app.post('/buscarCargo',function(entrada,respuesta){
+    cargo.buscarCargo(entrada,respuesta);
+});
+
+app.post('/listarCargo',function(entrada,respuesta){
+   cargo.listarCargo(entrada,respuesta);
+});
+
+
+app.post('/modificarCargo',function(entrada,respuesta){
+    cargo.modificarCargo(entrada,respuesta);
+});
+
+
+app.post('/eliminarCargo',function(entrada,respuesta){
+    cargo.eliminarCargo(entrada,respuesta);
+});
+
+app.post('/buscarCargo',function(entrada,respuesta){
+    cargo.buscarCargo(entrada,respuesta);
+});
+
+
+app.post('/listarForaneaCargos',function(entrada,respuesta){
+   cargo.listadoProyectos(entrada,respuesta); 
+});
 
 
 

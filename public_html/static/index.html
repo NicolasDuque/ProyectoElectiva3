@@ -47,7 +47,7 @@ and open the template in the editor.
                     <img src="Recursos/images/login.png" alt=""/>    
                 </div>                
                 <div id="login" class="tab-pane active">
-                    <form action="index.html" ng-controller="CtlLogIn" name="formLogin">
+                    <form  ng-controller="CtlLogIn" name="formLogin">
                         <p class="text-muted text-center">      
                             Ingresa tu nombre de usuario y password
                         </p>
@@ -71,7 +71,7 @@ and open the template in the editor.
                     </form>
                 </div>
                 <div id="signup" class="tab-pane">
-                    <form action="" ng-controller="CtlLogIn" name="formRegistro">                        
+                    <form  ng-controller="CtlLogIn" name="formRegistro">                        
                         <select  class="form-control top" required ng-model="identificacion.tipodocumento">                            
                             <option>Seleccione el tipo de documento</option>
                             <option>Cedula de ciudadania</option>
@@ -83,10 +83,9 @@ and open the template in the editor.
                         <input type="text" placeholder="Nombres" class="form-control middle" required ng-model="identificacion.nombre">                        
                         <input type="text" placeholder="Apellido" class="form-control middle" required ng-model="identificacion.apellido">
                         <select  class="form-control middle" required ng-model="identificacion.tipouser">                            
-                            <option>Seleccione el tipo de usuario</option>
-                            <option>Administrador</option>
-                            <option>Integrante</option>
-                            <option>Invitado</option>                                                                
+                            <option >Seleccione el tipo de usuario</option>
+                            <option >Administrador</option>
+                            <option>Integrante</option>        
                         </select>
                         <input type="email" placeholder="Correo electronico" class="form-control middle" required ng-model="identificacion.email">
                         <input type="password" placeholder="Password" class="form-control middle" required ng-model="identificacion.password">

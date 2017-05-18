@@ -24,8 +24,7 @@ app.service('logInService', function ($http, $httpParamSerializerJQLike) {
         return promise;
     };
 
-    this.crearUsuario = function (identificacion) {
-        alert("entro al servicio crear")
+    this.crearUsuario = function (identificacion) {        
         var promise = $http({
             method: "post",
             url: "/registrousuario",
@@ -44,10 +43,10 @@ app.service('logInService', function ($http, $httpParamSerializerJQLike) {
         }).then(function mySucces(response) {
             /*Todos los datos se almacenan en .data*/
             return response.data;
-            alert("ok servicio crear")
+            
             console.log(response);
         }, function myError(response) {                        
-            alert("Error enviando los datos");
+            
             console.log(response.statusText);
         });
 

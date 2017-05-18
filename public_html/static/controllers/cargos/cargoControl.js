@@ -46,6 +46,7 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
                     alert("CARGO REGISTRADO!");
 
                     $scope.cargo = "";
+                    $scope.listarCargo();
                 } else {
                     alert("EL CARGO YA SE ENCUENTRA REGISTRADO!");
                 }
@@ -62,7 +63,7 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
                 if (response.codigo === 1) {
                     alert("DATOS MODIFICADOS CON EXITO!");
                     $scope.cargo = "";
-
+                    $scope.listarCargo();
 
                 } else {
                     alert("ERROR AL MODIFICAR LOS DATOS");
@@ -85,15 +86,9 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if (response.codigo === 1) {
 
-                    var obj = {
-                        nombre: response.nombre,
-                        descripcion: response.descripcion,
-                        proyectoId: response.proyecto_id,
-                        horario: response.horario,
-                        salario: response.salario
-                    };
+                    
                     /*corra nuevamente...deje guardar la proxima*/
-                    $scope.cargo = obj;
+                    $scope.cargo = response;
                     console.log($scope.cargo);
 
                 } else {
@@ -109,29 +104,18 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
 
 
 
-   /* $scope.listarCargo = function () {
+   $scope.listarCargo = function () {
 
         cargoService.listarCargo().then(function (response) {
 
 
-            var entrada = [];
 
-
-
-            for (var i = 0; i < response.length; i++) {
-
-
-
-                entrada.push({nombre: response[i].nombre, descripcion:response[i].descripcion, proyectoId: response[i].proyectoId, horario: response[i].horario, salario: response[i].salario});
-
-            }
-
-
-            $scope.listadoCargo = entrada;
+        
+            $scope.listadoCargo = response;
 
         });
 
-    };*/
+    };
     
     $scope.eliminarCargo = function (form) {
 
@@ -142,8 +126,8 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if (response.codigo === 1) {
                     alert("EXITO");
-
-                    $scope.listarCargo;
+                    
+                   $scope.listarCargo();
 
                 } else {
                     alert("ERROR!");

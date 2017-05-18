@@ -24,7 +24,7 @@
  * jquery para que lleguen al servidor*/
 app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
     /*Se define una funcion interna llamada logIn, que recibe 2 parametros*/
-
+    var usuarioId = sessionStorage.getItem("usuarioId");
 
     this.guardarCargo = function (cargo) {
         /*El resultado del $http es almacenado en la promesa*/
@@ -41,7 +41,10 @@ app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
                 descripcion: cargo.descripcion,
                 horario: cargo.horario,
                 salario: cargo.salario,
-                proyectoId:cargo.proyecto_id
+                proyectoId:cargo.proyectoId,
+                usuarioId:usuarioId
+                
+                
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -65,7 +68,9 @@ app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
                 nombre: cargo.nombre,
                 descripcion: cargo.descripcion,
                 horario: cargo.horario,
-                salario: cargo.salario
+                salario: cargo.salario,
+                proyectoId:cargo.proyectoId,
+                usuarioId:usuarioId
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -82,9 +87,10 @@ app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
 
     this.listarCargo = function () {
         var promise = $http({
-            method: "get",
+            method: "post",
             url: "/listarCargo",
             data: $httpParamSerializerJQLike({
+                usuarioId:usuarioId
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -132,7 +138,8 @@ app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
             url: "/buscarCargo",
             data: $httpParamSerializerJQLike({
                 
-                nombre: cargo.nombre
+                nombre: cargo.nombre,
+                usuarioId:usuarioId
                }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -155,10 +162,10 @@ app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
         
         
         var promise = $http({
-            method: "get",
+            method: "post",
             url: "/listarForaneaCargos",
             data: $httpParamSerializerJQLike({
-                
+                usuarioId:usuarioId
        
                }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
