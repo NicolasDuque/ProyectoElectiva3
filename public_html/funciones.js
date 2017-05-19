@@ -8,6 +8,8 @@ var db = require('./static/dao/db');
 var login = require('./static/dao/daoLogin');
 var proyecto = require('./static/dao/daoProyectos');
 var cargo = require('./static/dao/daoCargo');
+var integrante = require('./static/dao/daoIntegrantes');
+var actividad = require('./static/dao/daoActividad');
 var server;
 
 
@@ -88,6 +90,69 @@ app.post('/buscarCargo',function(entrada,respuesta){
 app.post('/listarForaneaCargos',function(entrada,respuesta){
    cargo.listadoProyectos(entrada,respuesta); 
 });
+
+
+
+/*Integrantes*/
+
+app.post('/listarForaneaProyectos',function(entrada,respuesta){
+    integrante.listadoProyectos(entrada,respuesta);
+});
+
+app.get('/listarIntegrantes',function(entrada,respuesta){
+   integrante.listadoIntegrantes(respuesta);
+    
+    
+});
+
+app.post('/buscarIntegrante',function(entrada,respuesta){
+   integrante.buscarIntegrante(entrada,respuesta); 
+});
+
+app.post('/crearIntegrante',function(entrada,respuesta){
+   integrante.crearIntegrante(entrada,respuesta);
+});
+
+app.post('/eliminarIntegrante',function(entrada,respuesta){
+   integrante.eliminarIntegrante(entrada,respuesta); 
+});
+
+app.post('/modificarIntegrante',function(entrada,respuesta){
+   integrante.modificarIntegrante(entrada,respuesta); 
+});
+
+
+
+/*Actividades*/
+
+app.post('/crearActividad',function(entrada,respuesta){
+    actividad.crearActividad(entrada,respuesta);
+});
+
+app.post('/modificarActividad',function(entrada,respuesta){
+    actividad.modificarActividad(entrada,respuesta);
+    
+});
+
+app.post('/listarActividad',function(entrada,respuesta){
+   actividad.listarActividad(entrada,respuesta); 
+});
+
+app.post('/eliminarActividad',function(entrada,respuesta){
+   actividad.eliminarActividad(entrada,respuesta); 
+});
+
+app.post('/listarForaneaIntegrantes',function(entrada,respuesta){
+   actividad.listadoIntegrantes(entrada,respuesta);
+    
+});
+
+
+app.get('/listarForaneaProyectos',function(entrada,respuesta){
+   actividad.listadoProyectos(entrada,respuesta); 
+});
+
+
 
 
 
