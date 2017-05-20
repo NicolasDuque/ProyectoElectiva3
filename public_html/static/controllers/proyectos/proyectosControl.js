@@ -121,7 +121,7 @@ app.controller('controladorProyectos', function ($scope, $window, proyectosServi
                 /*El resultado de la promesa se recibe por parametro*/
                 if(response.codigo===1){
                     alert("EXITO");
-                    
+                    $scope.proyecto="";
                     $scope.listarProyectos();
                     
                 }else{
@@ -138,21 +138,10 @@ app.controller('controladorProyectos', function ($scope, $window, proyectosServi
     $scope.listarProyectos=function(){
       
       proyectosService.listar().then(function(response){
-          
-          
           var entrada = [];
-          
-          
-          
           for(var i=0;i<response.length;i++){
-              
-              
-              
               entrada.push({nombre:response[i].nombre,inicio:new Date(response[i].inicio),fin:new Date(response[i].fin),etapa:response[i].etapa});
-              
           }
-          
-          
           $scope.listadoProyectos=entrada;
           
       });

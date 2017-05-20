@@ -39,6 +39,7 @@ app.controller('controladorReunion', function ($scope, $window, reunionesService
         }
     };
    $scope.buscarReunion = function (form) {
+       console.log("entro buscar");
         if (form.$valid) {
             reunionesService.buscarReunion($scope.reunion).then(function (response) {
                 if (response.codigo === 1) {

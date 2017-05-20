@@ -127,12 +127,7 @@ app.service('cargoService', function ($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
-       this.buscarCargo = function (cargo) {
-        /*El resultado del $http es almacenado en la promesa*/
-        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
-        
-        
-        
+       this.buscarCargo = function (cargo) {       
         var promise = $http({
             method: "post",
             url: "/buscarCargo",

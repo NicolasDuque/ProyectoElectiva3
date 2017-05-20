@@ -76,6 +76,33 @@ app.service('tareaService', function ($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
+    
+    /***
+     * Listar actividad
+     * @param {type} tarea
+     * @returns La lista de actividades
+     */
+    
+    this.lActividad = function () {
+        var promise = $http({
+            method: "post",
+            url: "/listarForaneactividad",
+            data: $httpParamSerializerJQLike({
+                usuarioId:usuarioId
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+            alert(response.statusText);
+        });
+
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
+    
     this.deleteTarea = function (tarea) {
        
         var promise = $http({

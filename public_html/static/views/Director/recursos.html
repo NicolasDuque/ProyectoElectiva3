@@ -21,6 +21,14 @@
                 <input ng-model="recurso.descripcion" placeholder="Descripcion del recursos" class="form-control" required>
 
             </div> 
+             <div class="form-group col-md-6" ng-init="listarForaneaTarea()">
+                <label>
+                    Asignar recurso a la tarea :
+                </label>
+                <!--<input  type="text" class="form-control"
+                        placeholder="Actividad a seleccionar " ng-model="tarea.actividad" required>-->
+                 <select  ng-model="recurso.tarea" data-ng-options="t.id as t .nombre for t in listadoTarea" class="form-control" required></select>
+            </div> 
 
             <div  class="form-group col-md-6">
                 <label>
@@ -30,7 +38,7 @@
             </div>
 
             <div class="col col-lg-7 ">
-                <button class="btn btn-primary" type="submit" ng-click="crearRecurso(formulario)" >
+                <button class="btn btn-primary" type="submit" ng-click="crearRecurso(formulario.$valid)" >
                     Agregar
                 </button>
                 <button class="btn btn-success" type="button" ng-click="modificaRecurso(formulario)">
@@ -76,26 +84,20 @@
                     <tr>
                         <th class="seleccionable">
                             <a>Nombre</a>
-
-
                         </th> 
-
-
                         <th class="seleccionable">
                             <a>Cantidad</a>
-
-
                         </th>   
-
                         <th class="seleccionable">
                             <a>Descripcion</a>
-
-
                         </th>    
-
                         <th class="seleccionable">
                             <a>Ubicacion</a>
-                        </th>    
+                        </th>  
+                        <th class="seleccionable">
+                            <a>Tarea asignada</a>
+                        </th>  
+                        
                     </tr>
                 </thead>
                 <tbody ng-init="listarRecurso()" >
@@ -105,6 +107,7 @@
                         <td>{{obj.cantidad}}</td>
                         <td>{{obj.descripcion}}</td>
                         <td>{{obj.ubicacion}}</td>
+                        <td>{{obj.tarea}}</td>
 
                     </tr>
                 </tbody>

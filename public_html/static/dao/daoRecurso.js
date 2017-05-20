@@ -24,6 +24,26 @@ function listarRecurso(entrada,respuesta) {
     });
 
 }
+
+function listarForaneaTarea(entrada,respuesta) {
+    var sql = "select nombre from tareas where usuarioId=? ";
+    db.query(sql,entrada.body.usuarioId,function (error, filas) {
+        if (error) {
+            console.log(error);
+            return;
+        }        
+        var arreglo = [];
+        for (var i = 0; i < filas.length; i++) {
+             arreglo.push({nombre:filas[i].nombre});
+        }
+        arreglo = JSON.stringify(arreglo);
+        respuesta.writeHead(200, {'Content-Type': 'application/json'});
+        respuesta.end(arreglo);
+
+    });
+
+}
+
 function eliminarRecurso(pedido,respuesta){
         var nombre = pedido.body.nombre;
         var sql = 'delete from recurso where nombre=?';
@@ -70,7 +90,8 @@ function crearRecurso(entrada, respuesta) {
         nombre: entrada.body.nombre,
         cantidad: entrada.body.cantidad,
         descripcion: entrada.body.descripcion,
-        ubicacion: entrada.body.ubicacion,        
+        ubicacion: entrada.body.ubicacion,
+        tarea: entrada.body.tarea,        
         usuarioId:entrada.body.usuarioId
     };
     var sql = "insert into recurso set ?";
@@ -121,6 +142,7 @@ function buscarRecurso(entrada, respuesta) {
 
 
 exports.listarRecurso = listarRecurso;
+exports.listarForaneaTarea = listarForaneaTarea;
 exports.buscarRecurso = buscarRecurso;
 exports.crearRecurso = crearRecurso;
 exports.modificarRecurso = modificarRecurso;

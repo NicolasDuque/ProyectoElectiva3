@@ -11,6 +11,8 @@ var cargo = require('./static/dao/daoCargo');
 var tarea = require('./static/dao/daoTarea');
 var recurso = require('./static/dao/daoRecurso');
 var reunion = require('./static/dao/daoReunion');
+var integrante = require('./static/dao/daoIntegrantes');
+var actividad = require('./static/dao/daoActividad');
 
 var server;
 
@@ -108,6 +110,9 @@ app.post('/listarRecurso',function(entrada,respuesta){
    recurso.listarRecurso(entrada,respuesta);
 });
 
+app.post('/listarForaneaTarea',function(entrada,respuesta){
+   recurso.listarForaneaTarea(entrada,respuesta);
+});
 
 app.post('/modificarRecurso',function(entrada,respuesta){
     recurso.modificarRecurso(entrada,respuesta);
@@ -129,6 +134,10 @@ app.post('/buscarTarea',function(entrada,respuesta){
 
 app.post('/listarTarea',function(entrada,respuesta){
    tarea.listarTarea(entrada,respuesta);
+});
+
+app.post('/listarForaneactividad',function(entrada,respuesta){
+   tarea.listarForaneactividad(entrada,respuesta);
 });
 
 
@@ -165,8 +174,63 @@ app.post('/eliminarReunion',function(entrada,respuesta){
     reunion.eliminarReunion(entrada,respuesta);
 });
 
-app.post('/buscarReunion',function(entrada,respuesta){
-    reunion.buscarReunion(entrada,respuesta);
+/*Integrantes*/
+
+app.post('/listarForaneaProyectos',function(entrada,respuesta){
+    integrante.listadoProyectos(entrada,respuesta);
+});
+
+app.get('/listarIntegrantes',function(entrada,respuesta){
+   integrante.listadoIntegrantes(respuesta);
+    
+    
+});
+
+app.post('/buscarIntegrante',function(entrada,respuesta){
+   integrante.buscarIntegrante(entrada,respuesta); 
+});
+
+app.post('/crearIntegrante',function(entrada,respuesta){
+   integrante.crearIntegrante(entrada,respuesta);
+});
+
+app.post('/eliminarIntegrante',function(entrada,respuesta){
+   integrante.eliminarIntegrante(entrada,respuesta); 
+});
+
+app.post('/modificarIntegrante',function(entrada,respuesta){
+   integrante.modificarIntegrante(entrada,respuesta); 
+});
+
+
+
+/*Actividades*/
+
+app.post('/crearActividad',function(entrada,respuesta){
+    actividad.crearActividad(entrada,respuesta);
+});
+
+app.post('/modificarActividad',function(entrada,respuesta){
+    actividad.modificarActividad(entrada,respuesta);
+    
+});
+
+app.post('/listActividad',function(entrada,respuesta){
+   actividad.listarActividad(entrada,respuesta); 
+});
+
+app.post('/eliminarActividad',function(entrada,respuesta){
+   actividad.eliminarActividad(entrada,respuesta); 
+});
+
+app.post('/listarForaneaIntegrantes',function(entrada,respuesta){
+   actividad.listadoIntegrantes(entrada,respuesta);
+    
+});
+
+
+app.get('/listarForaneaProyectos',function(entrada,respuesta){
+   actividad.listadoProyectos(entrada,respuesta); 
 });
 
 

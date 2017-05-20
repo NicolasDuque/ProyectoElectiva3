@@ -83,4 +83,12 @@ app.controller('controladorRecursos', function ($scope, $window, recursoService)
         $scope.selected = this.obj;
         $scope.recurso = $scope.selected;
     };
+    
+    $scope.listarForaneaTarea = function () {
+        recursoService.lTarea().then(function (response) {
+            $scope.listadoTarea = response;
+        });
+    };
+    
+    
 });

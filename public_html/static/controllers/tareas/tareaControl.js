@@ -54,7 +54,12 @@ app.controller('controladorTareas', function ($scope, $window, tareaService) {
    $scope.listarTarea = function () {
 
         tareaService.listTarea().then(function (response) {
-            $scope.lTarea = response;
+          var entrada = [];
+          for(var i=0;i<response.length;i++){
+              entrada.push({actividad:response[i].actividad,nombreactividad:response[i].nombreactividad,nombre:response[i].nombre,porcentaje:response[i].porcentaje,estado:response[i].estado,inicio:new Date(response[i].inicio),fin:new Date(response[i].fin)});
+          }
+            $scope.lTarea = entrada;
+            console.log(entrada);
         });
     };
     
@@ -78,10 +83,13 @@ app.controller('controladorTareas', function ($scope, $window, tareaService) {
     $scope.getSelectedRow = function () {
         $scope.selected = this.obj;
         $scope.tarea = $scope.selected;
+        
     };
-    $scope.listarForaneaProyectos = function () {
-        tareaService.listarProyectos().then(function (response) {
-            $scope.listadoProyectos = response;
+    $scope.listarForaneaActividades = function () {
+        tareaService.lActividad().then(function (response) {
+            $scope.listadoActividades = response;
         });
     };
+    
+    
 });

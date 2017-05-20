@@ -89,34 +89,41 @@ function crearReunion(entrada, respuesta) {
 }
 
 function buscarReunion(entrada, respuesta) {
-    var nombre = [entrada.body.nombre];
-    console.log(nombre);
-    var sql = 'select nombre,ubicacion,tematica from reunion where nombre=? AND usuarioId=?';
+        var nombre = [entrada.body.nombre];
+        console.log(nombre);
+        //Se manda el codigo en la busqueda
 
-    db.query(sql, nombre, function (error, filas) {
-        if (error) {
-            console.log(error);
-            return;
-        }
-        if (filas.length > 0) {
-            var object = {codigo: 1, nombre: filas[0].nombre, ubicacion: filas[0].ubicacion,
-                tematica: filas[0].tematica};
+        var sql = 'select nombre,ubicacion,tematica from reunion where nombre=? AND usuarioId=?';
+
+        db.query(sql, [nombre,entrada.body.usuarioId], function (error, filas) {
+            if (error) {
+                console.log(error);
+                return;
+                
+            }
+            if(filas.length>0){
+            var object = {codigo:1,nombre:filas[0].nombre,ubicacion:filas[0].ubicacion,
+                tematica:filas[0].tematica};
+            
             console.log(object);
             object = JSON.stringify(object);
-            respuesta.writeHead(200, {'Content-Type': 'application/json'});
+            respuesta.writeHead(200,{'Content-Type':'application/json'});
             respuesta.end(object);
-        } else {
-            var object = {codigo: -1};
+            }else{
+            var object = {codigo:-1};
             object = JSON.stringify(object);
-            respuesta.writeHead(200, {'Content-Type': 'application/json'});
+            respuesta.writeHead(200,{'Content-Type':'application/json'});
             respuesta.end(object);
-        }
-    });
+            }
+            
+            
+            
+        });
+    
 }
 
 exports.listarReunion = listarReunion;
 exports.crearReunion = crearReunion;
 exports.modificarReunion = modificarReunion;
-
 exports.eliminarReunion = eliminarReunion;
 exports.buscarReunion = buscarReunion;

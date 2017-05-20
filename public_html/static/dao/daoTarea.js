@@ -7,7 +7,8 @@ var db = require('./db');
 
 
 function listarTarea(entrada,respuesta) {
-    var sql = "select actividad,nombre,porcentaje, estado, inicio,fin from tareas where usuarioId=? ";
+    var sql = "select a.id as ident,a.nombre as nombreactividad,t.nombre,t.porcentaje, t.estado, t.inicio,t.fin from tareas t join registro r on r.id=t.usuarioId join actividad a on r.id=a.usuarioId where t.usuarioId=? ";
+    //var sql = "select a.nombre,t.nombre,t.porcentaje, t.estado, t.inicio,t.fin from tareas t join registro r on r.id=t.usuarioId join actividad a on r.id=a.usuarioId where t.usuarioId=? ";
     db.query(sql,entrada.body.usuarioId,function (error, filas) {
         if (error) {
             console.log(error);
@@ -16,7 +17,7 @@ function listarTarea(entrada,respuesta) {
         
         var arreglo = [];
         for (var i = 0; i < filas.length; i++) {
-            arreglo.push({actividad: filas[i].actividad, nombre: filas[i].nombre,porcentaje:filas[i].porcentaje,estado:filas[i].estado,inicio:filas[i].inicio,fin:filas[i].fin});
+            arreglo.push({actividad:filas[i].ident,nombreactividad: filas[i].nombreactividad, nombre: filas[i].nombre,porcentaje:filas[i].porcentaje,estado:filas[i].estado,inicio:filas[i].inicio,fin:filas[i].fin});
         }
         arreglo = JSON.stringify(arreglo);
         respuesta.writeHead(200, {'Content-Type': 'application/json'});
@@ -25,6 +26,28 @@ function listarTarea(entrada,respuesta) {
     });
 
 }
+function listarForaneactividad(entrada,respuesta) {
+    var usuario = entrada.body.usuarioId;
+    var sql = "select id,nombre from actividad where usuarioId=?";
+    db.query(sql,usuario,function (error, filas) {
+        if (error) {
+            console.log(error);
+            return;
+        }
+        
+        var arreglo = [];
+        for (var i = 0; i < filas.length; i++) {
+           arreglo.push({id:filas[i].id,nombre:filas[i].nombre});
+        }
+        arreglo = JSON.stringify(arreglo);
+        respuesta.writeHead(200, {'Content-Type': 'application/json'});
+        respuesta.end(arreglo);
+
+    });
+
+}
+
+
 function eliminarTarea(pedido,respuesta){
         var nombre = pedido.body.nombre;
         var sql = 'delete from tareas where nombre=?';
@@ -129,6 +152,6 @@ function buscarTarea(entrada, respuesta) {
 exports.listarTarea = listarTarea;
 exports.crearTarea = crearTarea;
 exports.modificarTarea = modificarTarea;
-
+exports.listarForaneactividad = listarForaneactividad;
 exports.eliminarTarea = eliminarTarea;
 exports.buscarTarea = buscarTarea;

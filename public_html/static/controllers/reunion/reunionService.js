@@ -12,7 +12,7 @@ app.service('reunionesService', function ($http, $httpParamSerializerJQLike) {
                 nombre: reunion.nombre,
                 ubicacion: reunion.ubicacion,
                 tematica: reunion.tematica,
-                usuarioId:usuarioId
+                usuarioId: usuarioId
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -34,8 +34,8 @@ app.service('reunionesService', function ($http, $httpParamSerializerJQLike) {
                 nombre: reunion.nombre,
                 ubicacion: reunion.ubicacion,
                 tematica: reunion.tematica,
-                usuarioId:usuarioId
-                
+                usuarioId: usuarioId
+
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -55,7 +55,7 @@ app.service('reunionesService', function ($http, $httpParamSerializerJQLike) {
             method: "post",
             url: "/listarReunion",
             data: $httpParamSerializerJQLike({
-                 usuarioId:usuarioId
+                usuarioId: usuarioId
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -87,13 +87,15 @@ app.service('reunionesService', function ($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
-       this.buscarReunion = function (reunion) {        
+    this.buscarReunion = function (reunion) {
         var promise = $http({
             method: "post",
             url: "/buscarReunion",
-            data: $httpParamSerializerJQLike({                
-                nombre: reunion.nombre
-               }),
+            data: $httpParamSerializerJQLike({
+                nombre: reunion.nombre,
+                usuarioId: usuarioId
+
+            }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
             /*Todos los datos se almacenan en .data*/
@@ -103,6 +105,6 @@ app.service('reunionesService', function ($http, $httpParamSerializerJQLike) {
             alert(response.statusText);
         });
         return promise;
-    };   
-    
+    };
+
 });

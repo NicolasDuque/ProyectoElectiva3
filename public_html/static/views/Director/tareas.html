@@ -1,12 +1,13 @@
 <div class="col-xs-12">
     <div class="col-md-12">
         <form  method="post" role="form" name="formulario" >
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" ng-init="listarForaneaActividades()">
                 <label>
                     Actividad:
                 </label>
-                <input  type="text" class="form-control"
-                        placeholder="Actividad a seleccionar " ng-model="tarea.actividad" required>
+                <!--<input  type="text" class="form-control"
+                        placeholder="Actividad a seleccionar " ng-model="tarea.actividad" required>-->
+                 <select  ng-model="tarea.actividad" data-ng-options="t.id as t .nombre for t in listadoActividades" class="form-control" required></select>
             </div> 
             <div class="form-group col-md-6">
                 <label>
@@ -98,10 +99,10 @@
                             <a>Nombre</a>
                         </th>   
                         <th class="seleccionable">
-                            <a>Porcentaje</a>
+                            <a>Porcentaje(%)</a>
                         </th>    
                         <th class="seleccionable">
-                            <a>Estado</a>
+                            <a>Estado(%)</a>
                         </th>    
                         <th class="seleccionable">
                             <a>Fecha Inicio</a>
@@ -114,7 +115,7 @@
                 </thead>
                 <tbody ng-init="listarTarea()" >
                     <tr  ng-click="getSelectedRow()" ng-repeat="obj in lTarea | filter:filtrar ">
-                        <td>{{obj.actividad}}</td>
+                        <td>{{obj.nombreactividad}}</td>
                         <td>{{obj.nombre}}</td>
                         <td>{{obj.porcentaje}}</td>
                         <td>{{obj.estado}}</td>

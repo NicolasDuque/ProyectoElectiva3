@@ -12,58 +12,48 @@
 /*app.controller(nombre de la funcion)  ($scope, nombre de los servicios a utilizar)*/
 /*$windows servicio por defecto para poder utilizar refresco de pagina y redireccionamiento*/
 /*logInService, nombre del servicio que contiene la promesa. */
-app.controller('controladorCargos', function ($scope, $window, cargoService) {
+app.controller('controladorIntegrante', function ($scope, $window, IntegranteService) {
 
 
     /*info*/
-    $scope.cargo = "";
+    $scope.integrante = "";
 
-    $scope.dias = [
-
-        {opcion: "lunes"},
-        {opcion: "martes"},
-        {opcion: "miercoles"},
-        {opcion: "jueves"},
-        {opcion: "viernes"},
-        {opcion: "sabado"},
-        {opcion: "domingo"}
-
-    ];
+    
 
 
-    $scope.listadoCargo;
+    $scope.listadoIntegrantes;
 
 
 
     /*Se define una funcion en el controlador*/
-    $scope.crearCargo = function (form) {
+    $scope.crearIntegrante = function (form) {
 
-        console.log($scope.cargo);
+        console.log($scope.integrante);
         if (form.$valid) {
-            cargoService.guardarCargo($scope.cargo).then(function (response) {
+            IntegranteService.guardarIntegrante($scope.integrante).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if (response.codigo === 1) {
-                    alert("CARGO REGISTRADO!");
+                    alert("INTEGRANTE REGISTRADO!");
 
-                    $scope.cargo = "";
-                    $scope.listarCargo();
+                    $scope.integrante = "";
+                    
                 } else {
-                    alert("EL CARGO YA SE ENCUENTRA REGISTRADO!");
+                    alert("EL INTEGRANTE YA TIENE UN PROYECTO ASIGNADO!");
                 }
             });
         } else {
             alert("debe diligenciar toda la informacion");
         }
     };
-    $scope.modificarCargo = function (form) {
+    $scope.modificarIntegrante = function (form) {
         if (form.$valid) {
             /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
              * el cual esta asociado a los input*/
-            cargoService.modificarCargo($scope.cargo).then(function (response) {
+            IntegranteService.modificarIntegrante($scope.integrante).then(function (response) {
                 if (response.codigo === 1) {
                     alert("DATOS MODIFICADOS CON EXITO!");
-                    $scope.cargo = "";
-                    $scope.listarCargo();
+                    $scope.integrante = "";
+                    
 
                 } else {
                     alert("ERROR AL MODIFICAR LOS DATOS");
@@ -74,69 +64,59 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
         }
     };
 
-    $scope.buscarCargo = function (form) {
+    
 
 
 
-        if (form.$valid) {
-            cargoService.buscarCargo($scope.cargo).then(function (response) {
-                if (response.codigo === 1) {
+   $scope.listarIntegrantes = function () {
 
-                    
-                    $scope.cargo = response;
-                    console.log($scope.cargo);
-
-                } else {
-                    alert("NO DATA FOUND!");
-                }
-
-
-            });
-        } else {
-            alert("debe ingresar un nombre a buscar");
-        }
-    };
-
-
-
-   $scope.listarCargo = function () {
-
-        cargoService.listarCargo().then(function (response) {
+        IntegranteService.listar().then(function (response) {
 
 
 
         
-            $scope.listadoCargo = response;
+            $scope.listadoIntegrantes = response;
 
         });
 
     };
     
-    $scope.eliminarCargo = function (form) {
+    $scope.eliminarIntegrante = function () {
 
-        if (form.$valid) {
+        
             /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
              * el cual esta asociado a los input*/
-            cargoService.eliminarCargo($scope.cargo).then(function (response) {
+            IntegranteService.eliminarIntegrante($scope.integrante).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if (response.codigo === 1) {
                     alert("EXITO");
                     
-                   $scope.listarCargo();
+                  $scope.integrante = "";
 
                 } else {
                     alert("ERROR!");
                 }
 
             });
-        } else {
-            alert("debe ingresar un nombre a buscar!");
-        }
+        
     };
 
     $scope.getSelectedRow = function () {
-        $scope.selected = this.obj;
-        $scope.cargo = $scope.selected;
+        
+       $scope.integrante = this.obj;
+       
+       IntegranteService.buscarIntegrante($scope.integrante).then(function(response){
+           if(response.codigo===1){
+               
+               $scope.integrante = response;
+               console.log($scope.integrante);
+           }
+       });
+        
+        
+        
+       
+        
     };
 
 
@@ -146,9 +126,10 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
 
         /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
          * el cual esta asociado a los input*/
-        cargoService.listarProyectos().then(function (response) {
-            $scope.listadoProyectos = response;
-
+        IntegranteService.listarProyectos().then(function (response) {
+            
+          $scope.listadoProyectos = response;
+          
         });
 
     };

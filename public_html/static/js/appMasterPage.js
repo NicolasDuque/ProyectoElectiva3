@@ -42,6 +42,14 @@ app.config(function ($routeProvider) {
                 controller: 'controladorReunion',
                 templateUrl: 'Director/reunion.html'
             })
+            .when('/Integrantes',{
+                controller:'controladorIntegrante',
+                templateUrl:'Director/integrante.html'
+            })
+            .when('/Actividades',{
+                controller:'controladorActividades',
+                templateUrl:'Director/actividades.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });
