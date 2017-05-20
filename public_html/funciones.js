@@ -332,7 +332,11 @@ app.post('/listarForaneaIntegrantes',function(entrada,respuesta){
 app.get('/listarForaneaProyectos',function(entrada,respuesta){
    actividad.listadoProyectos(entrada,respuesta); 
 });
+//////////////////////////////////////////
 
+app.post('/listadoEstado',function(entrada,respuesta){
+   estado.listadoEstado(entrada,respuesta); 
+});
 
 
 
