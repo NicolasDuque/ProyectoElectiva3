@@ -4,14 +4,18 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 var db = require('./db');
 
+
 function crearProyecto(entrada,respuesta){
+    
+    
+    
     
     var registro = {
         nombre:entrada.body.nombre,
         inicio:entrada.body.inicio,
         fin:entrada.body.fin,
-        etapa:entrada.body.etapa
-        
+        etapa:entrada.body.etapa,
+        usuarioId:entrada.body.usuarioId
         
     };
     
@@ -35,13 +39,15 @@ function crearProyecto(entrada,respuesta){
 }
 
 function modificarProyecto(entrada,respuesta){
+    
     var registro = {
       inicio:entrada.body.inicio,
       fin:entrada.body.fin,
-      etapa:entrada.body.etapa
-        
+      etapa:entrada.body.etapa,
+      usuarioId:entrada.body.usuarioId  
     };
     
+    console.log(registro);
     var codigo = 1;
     var condicion = {nombre:entrada.body.nombre};
     var sql = "update proyecto set ? where ?";
@@ -64,12 +70,12 @@ function modificarProyecto(entrada,respuesta){
 }
 
 
- function listadoProyectos(respuesta) {
-
-    var sql = 'select nombre,inicio,fin,etapa from proyecto';
+ function listadoProyectos(entrada,respuesta) {
+    
+    var sql = 'select nombre,inicio,fin,etapa from proyecto where usuarioId=?';
 
     //Se realiza la consulta, recibiendo por parametro filas los registros de la base de datos.         
-    db.query(sql, function (error, filas) {
+    db.query(sql,entrada.body.usuarioId,function (error, filas) {
         if (error) {
             console.log('error en el listado');
             return;
@@ -93,18 +99,14 @@ function modificarProyecto(entrada,respuesta){
 
 
 function buscarProyecto(entrada, respuesta) {
-
-    
-
-    
-
+        
         var nombreBuscar = [entrada.body.nombreBuscar];
         console.log(nombreBuscar);
         //Se manda el codigo en la busqueda
 
-        var sql = 'select nombre,inicio,fin,etapa from proyecto where nombre=?';
+        var sql = 'select nombre,inicio,fin,etapa from proyecto where nombre=? AND usuarioId=?';
 
-        db.query(sql, nombreBuscar, function (error, filas) {
+        db.query(sql, [nombreBuscar,entrada.body.usuarioId], function (error, filas) {
             if (error) {
                 console.log(error);
                 return;
@@ -129,10 +131,11 @@ function buscarProyecto(entrada, respuesta) {
 }
 
 function eliminarProyecto(pedido,respuesta){
+        
         var nombre = pedido.body.nombreBuscar;
-        var sql = 'delete from proyecto where nombre=?';
+        var sql = 'delete from proyecto where nombre=? AND usuarioId=?';
         var codigo = 1;
-        db.query(sql, nombre, function (error,response) {
+        db.query(sql, [nombre,pedido.body.usuarioId], function (error,response) {
            if(error){
                codigo=-1;
            }

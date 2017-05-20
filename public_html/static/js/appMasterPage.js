@@ -13,8 +13,8 @@ app.controller('CtlValidate', function ($scope, $window) {
     $scope.sesion = sessionStorage.getItem("session");
     
     /*Luego se valida para saber si se redirecciona o no*/
-    if (!$scope.sesion && $scope.sesion==="Integrante") {
-        $window.location.href = 'http://localhost:8888/index.html';
+    if (!$scope.sesion) {
+        $window.location.href = 'http://localhost:8888';
     }
 });
 app.config(function ($routeProvider) {
@@ -25,9 +25,22 @@ app.config(function ($routeProvider) {
                 controller: 'controladorProyectos',
                 templateUrl: 'Director/proyectos.html'
             })
+            
             .when('/Cargos', {
                 controller: 'controladorCargos',
                 templateUrl: 'Director/cargos.html'
+            })
+              .when('/Recursos', {
+                controller: 'controladorRecursos',
+                templateUrl: 'Director/recursos.html'
+            })
+             .when('/Tareas', {
+                controller: 'controladorTareas',
+                templateUrl: 'Director/tareas.html'
+            })
+             .when('/Reunion', {
+                controller: 'controladorReunion',
+                templateUrl: 'Director/reunion.html'
             })
             .otherwise({
                 redirectTo: '/'

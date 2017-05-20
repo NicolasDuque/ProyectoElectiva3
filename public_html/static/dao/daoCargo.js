@@ -6,24 +6,23 @@ app.use(bodyParser.urlencoded({extended: true}));
 var db = require('./db');
 
 
-function listarCargo(entrada, respuesta) {
-    var sql = "select id,nombre, nombre, descripcion,proyectoId, horario, salario from cargo";
-    db.query(sql, function (error, filas) {
+function listarCargo(entrada,respuesta) {
+    var sql = "select nombre,descripcion,proyectoId, horario, salario from cargo where usuarioId=? ";
+    db.query(sql,entrada.body.usuarioId,function (error, filas) {
         if (error) {
             console.log(error);
             return;
         }
-
+        
         var arreglo = [];
         for (var i = 0; i < filas.length; i++) {
-            arreglo.push({id: filas[i].id, nombre: filas[i].nombre});
+            arreglo.push({nombre: filas[i].nombre, descripcion: filas[i].descripcion,proyectoId:filas[i].proyectoId,horario:filas[i].horario,salario:filas[i].salario});
         }
         arreglo = JSON.stringify(arreglo);
         respuesta.writeHead(200, {'Content-Type': 'application/json'});
         respuesta.end(arreglo);
 
     });
-
 
 }
 function eliminarCargo(pedido,respuesta){
@@ -34,6 +33,7 @@ function eliminarCargo(pedido,respuesta){
            if(error){
                codigo=-1;
            }
+         
            var object = {codigo:codigo};
             object = JSON.stringify(object);
             respuesta.writeHead(200,{'Content-Type':'application/json'});
@@ -46,7 +46,9 @@ function modificarCargo(entrada, respuesta) {
         nombre: entrada.body.nombre,
         descripcion: entrada.body.descripcion,
         horario: entrada.body.horario,
-        salario: entrada.body.salario
+        salario: entrada.body.salario,
+        proyectoId: entrada.body.proyectoId,
+        usuarioId:entrada.body.usuarioId
 
     };
 
@@ -71,7 +73,8 @@ function crearCargo(entrada, respuesta) {
         descripcion: entrada.body.descripcion,
         horario: entrada.body.horario,
         salario: entrada.body.salario,
-        proyectoId:entrada.body.proyectoId
+        proyectoId:entrada.body.proyectoId,
+        usuarioId:entrada.body.usuarioId
     };
     var sql = "insert into cargo set ?";
      var codigo = 1;
@@ -90,12 +93,12 @@ function crearCargo(entrada, respuesta) {
 
 
 
-function listadoProyectos(respuesta) {
+function listadoProyectos(entrada,respuesta) {
 
-    var sql = 'select id,nombre from proyecto';
+    var sql = 'select id,nombre from proyecto where usuarioId=?';
 
     //Se realiza la consulta, recibiendo por parametro filas los registros de la base de datos.         
-    db.query(sql, function (error, filas) {
+    db.query(sql,entrada.body.usuarioId,function (error, filas) {
         if (error) {
             console.log('error en el listado');
             return;
@@ -122,9 +125,9 @@ function buscarCargo(entrada, respuesta) {
         console.log(nombre);
         //Se manda el codigo en la busqueda
 
-        var sql = 'select nombre,descripcion,proyectoId,horario,salario from cargo where nombre=?';
+        var sql = 'select nombre,descripcion,proyectoId,horario,salario from cargo where nombre=? AND usuarioId=?';
 
-        db.query(sql, nombre, function (error, filas) {
+        db.query(sql, [nombre,entrada.body.usuarioId], function (error, filas) {
             if (error) {
                 console.log(error);
                 return;
@@ -133,6 +136,8 @@ function buscarCargo(entrada, respuesta) {
             if(filas.length>0){
             var object = {codigo:1,nombre:filas[0].nombre,descripcion:filas[0].descripcion,
                 proyectoId:filas[0].proyectoId,horario:filas[0].horario,salario:filas[0].salario};
+            
+            console.log(object);
             object = JSON.stringify(object);
             respuesta.writeHead(200,{'Content-Type':'application/json'});
             respuesta.end(object);

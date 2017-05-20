@@ -20,11 +20,15 @@ app.controller('CtlLogIn', function ($scope, $window, logInService) {
                 if (response.codigo === 1 && response.type=="Administrador") {
                     
                     sessionStorage.setItem("session", response.type);
+                    sessionStorage.setItem("usuarioId",response.usuarioId);
+                    
+                    
   
                     $window.location.href = 'http://localhost:8888/views/principal.html';
                 }else if(response.codigo === 1 && response.type=="Integrante"){
                     
-                    sessionStorage.setItem("session",response.type);
+                     sessionStorage.setItem("session",response.type);
+                     sessionStorage.setItem("usuarioId",response.usuarioId);
                      $window.location.href = 'http://localhost:8888/views/PrincipalIntegrante.html';
                 }else{
                     alert("verifique correo y password");
@@ -36,17 +40,24 @@ app.controller('CtlLogIn', function ($scope, $window, logInService) {
     };
 
     $scope.registrarUsuarios = function (form) {
-        if (form) {
-            logInService.crearUsuario($scope.identificacion).then(function (response) {                
+        if (form ) {
+            if($scope.identificacion.password===$scope.identificacion.repeatpassword){
+                logInService.crearUsuario($scope.identificacion).then(function (response) {                
                 
                 if (response.codigo === 1) {
                     alert("El usuario se ha creado con exito");
                     $scope.identificacion = "";
+                    $window.location.href="http://localhost:8888";
                 } else {
                     alert("No se pudo crear el registro");
                     $scope.identificacion = "";
                 }
             });
+            }else{
+                alert("las password no coinciden!");
+            }
+            
+            
         } else {
             alert("Verifique los datos ingresados");
         }

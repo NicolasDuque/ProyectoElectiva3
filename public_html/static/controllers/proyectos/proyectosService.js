@@ -23,14 +23,14 @@
  * jquery para que lleguen al servidor*/
 app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
     /*Se define una funcion interna llamada logIn, que recibe 2 parametros*/
-    
+     var usuarioId=sessionStorage.getItem("usuarioId");
     
     this.guardar = function (proyecto) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         
         
-        
+      
         
         var promise = $http({
             method: "post",
@@ -39,7 +39,8 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
                 nombre: proyecto.nombre,
                 inicio: proyecto.inicio,
                 fin: proyecto.fin,
-                etapa:proyecto.etapa
+                etapa:proyecto.etapa,
+                usuarioId:usuarioId
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -63,7 +64,8 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
                 nombre: proyecto.nombre,
                 inicio: proyecto.inicio,
                 fin: proyecto.fin,
-                etapa:proyecto.etapa
+                etapa:proyecto.etapa,
+                usuarioId:usuarioId
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -88,7 +90,8 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
             url: "/eliminarProyecto",
             data: $httpParamSerializerJQLike({
                 
-                nombreBuscar: proyecto.nombreBuscar}),
+                nombreBuscar: proyecto.nombreBuscar,
+                usuarioId:usuarioId}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
             /*Todos los datos se almacenan en .data*/
@@ -113,7 +116,8 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
             url: "/buscarProyecto",
             data: $httpParamSerializerJQLike({
                 
-                nombreBuscar: proyecto.nombreBuscar
+                nombreBuscar: proyecto.nombreBuscar,
+                usuarioId:usuarioId
                }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -129,9 +133,10 @@ app.service('proyectosService', function ($http, $httpParamSerializerJQLike) {
     };
     this.listar=function(){
         var promise = $http({
-            method: "get",
+            method: "post",
             url: "/listadoProyectos",
             data: $httpParamSerializerJQLike({
+                usuarioId:usuarioId
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {

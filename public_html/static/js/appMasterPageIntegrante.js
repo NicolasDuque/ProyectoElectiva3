@@ -13,8 +13,8 @@ app.controller('CtlValidate', function ($scope, $window) {
     $scope.sesion = sessionStorage.getItem("session");
     
     /*Luego se valida para saber si se redirecciona o no*/
-    if (!$scope.sesion && $scope.sesion==="Administrador") {
-        $window.location.href = 'http://localhost:8888/index.html';
+    if (!$scope.sesion) {
+        $window.location.href = 'http://localhost:8888';
     }
 });
 app.config(function ($routeProvider) {
