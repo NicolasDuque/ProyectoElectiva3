@@ -8,12 +8,17 @@ var db = require('./static/dao/db');
 var login = require('./static/dao/daoLogin');
 var proyecto = require('./static/dao/daoProyectos');
 var cargo = require('./static/dao/daoCargo');
+<<<<<<< HEAD
 var tarea = require('./static/dao/daoTarea');
 var recurso = require('./static/dao/daoRecurso');
 var reunion = require('./static/dao/daoReunion');
 var integrante = require('./static/dao/daoIntegrantes');
 var actividad = require('./static/dao/daoActividad');
 
+=======
+var integrante = require('./static/dao/daoIntegrantes');
+var actividad = require('./static/dao/daoActividad');
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
 var server;
 
 
@@ -58,6 +63,7 @@ app.post('/buscarProyecto',function(entrada,respuesta){
 
 app.post('/listadoProyectos',function(entrada,respuesta){
     proyecto.listadoProyectos(entrada,respuesta);
+<<<<<<< HEAD
 });
 
 
@@ -130,6 +136,8 @@ app.post('/crearTarea',function(entrada,respuesta){
 
 app.post('/buscarTarea',function(entrada,respuesta){
     tarea.buscarTarea(entrada,respuesta);
+=======
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
 });
 
 app.post('/listarTarea',function(entrada,respuesta){
@@ -232,6 +240,103 @@ app.post('/listarForaneaIntegrantes',function(entrada,respuesta){
 app.get('/listarForaneaProyectos',function(entrada,respuesta){
    actividad.listadoProyectos(entrada,respuesta); 
 });
+
+app.post('/crearCargo',function(entrada,respuesta){
+    cargo.crearCargo(entrada,respuesta);
+});
+
+app.post('/buscarCargo',function(entrada,respuesta){
+    cargo.buscarCargo(entrada,respuesta);
+});
+
+app.post('/listarCargo',function(entrada,respuesta){
+   cargo.listarCargo(entrada,respuesta);
+});
+
+
+app.post('/modificarCargo',function(entrada,respuesta){
+    cargo.modificarCargo(entrada,respuesta);
+});
+
+
+app.post('/eliminarCargo',function(entrada,respuesta){
+    cargo.eliminarCargo(entrada,respuesta);
+});
+
+app.post('/buscarCargo',function(entrada,respuesta){
+    cargo.buscarCargo(entrada,respuesta);
+});
+
+
+app.post('/listarForaneaCargos',function(entrada,respuesta){
+   cargo.listadoProyectos(entrada,respuesta); 
+});
+
+
+
+/*Integrantes*/
+
+app.post('/listarForaneaProyectos',function(entrada,respuesta){
+    integrante.listadoProyectos(entrada,respuesta);
+});
+
+app.get('/listarIntegrantes',function(entrada,respuesta){
+   integrante.listadoIntegrantes(respuesta);
+    
+    
+});
+
+app.post('/buscarIntegrante',function(entrada,respuesta){
+   integrante.buscarIntegrante(entrada,respuesta); 
+});
+
+app.post('/crearIntegrante',function(entrada,respuesta){
+   integrante.crearIntegrante(entrada,respuesta);
+});
+
+app.post('/eliminarIntegrante',function(entrada,respuesta){
+   integrante.eliminarIntegrante(entrada,respuesta); 
+});
+
+app.post('/modificarIntegrante',function(entrada,respuesta){
+   integrante.modificarIntegrante(entrada,respuesta); 
+});
+
+
+
+/*Actividades*/
+
+app.post('/crearActividad',function(entrada,respuesta){
+    actividad.crearActividad(entrada,respuesta);
+});
+
+app.post('/modificarActividad',function(entrada,respuesta){
+    actividad.modificarActividad(entrada,respuesta);
+    
+});
+
+app.post('/listarActividad',function(entrada,respuesta){
+   actividad.listarActividad(entrada,respuesta); 
+});
+
+app.post('/eliminarActividad',function(entrada,respuesta){
+   actividad.eliminarActividad(entrada,respuesta); 
+});
+
+app.post('/listarForaneaIntegrantes',function(entrada,respuesta){
+   actividad.listadoIntegrantes(entrada,respuesta);
+    
+});
+
+
+app.get('/listarForaneaProyectos',function(entrada,respuesta){
+   actividad.listadoProyectos(entrada,respuesta); 
+});
+
+
+
+
+
 
 
 exports.configurarServidor = configurarServidor;

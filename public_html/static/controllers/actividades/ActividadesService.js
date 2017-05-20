@@ -42,8 +42,13 @@ app.service('actividadService', function ($http, $httpParamSerializerJQLike) {
                 idIntegrante: actividad.idIntegrante,
                 idProyecto: actividad.idProyecto,
                 inicio:actividad.inicio,
+<<<<<<< HEAD
                 fin:actividad.fin,
                 usuarioId:usuarioId
+=======
+                fin:actividad.fin
+                
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
                 
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -86,6 +91,7 @@ app.service('actividadService', function ($http, $httpParamSerializerJQLike) {
         return promise;
     };
 
+<<<<<<< HEAD
     this.listaActividad = function () {
         
         var promise = $http({
@@ -94,6 +100,14 @@ app.service('actividadService', function ($http, $httpParamSerializerJQLike) {
             data: $httpParamSerializerJQLike({
                usuarioId:usuarioId
                
+=======
+    this.listarActividad = function () {
+        var promise = $http({
+            method: "post",
+            url: "/listarActividad",
+            data: $httpParamSerializerJQLike({
+                usuarioId:usuarioId
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -131,7 +145,11 @@ app.service('actividadService', function ($http, $httpParamSerializerJQLike) {
         return promise;
     };
     
+<<<<<<< HEAD
     this.listarIntegrantes = function (idProyecto) {
+=======
+    this.listarIntegrantes = function () {
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         
@@ -141,7 +159,11 @@ app.service('actividadService', function ($http, $httpParamSerializerJQLike) {
             method: "post",
             url: "/listarForaneaIntegrantes",
             data: $httpParamSerializerJQLike({
+<<<<<<< HEAD
                 idProyecto:idProyecto
+=======
+                usuarioId:usuarioId
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
        
                }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}

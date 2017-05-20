@@ -30,6 +30,7 @@ app.config(function ($routeProvider) {
                 controller: 'controladorCargos',
                 templateUrl: 'Director/cargos.html'
             })
+<<<<<<< HEAD
               .when('/Recursos', {
                 controller: 'controladorRecursos',
                 templateUrl: 'Director/recursos.html'
@@ -42,6 +43,8 @@ app.config(function ($routeProvider) {
                 controller: 'controladorReunion',
                 templateUrl: 'Director/reunion.html'
             })
+=======
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
             .when('/Integrantes',{
                 controller:'controladorIntegrante',
                 templateUrl:'Director/integrante.html'
@@ -49,7 +52,15 @@ app.config(function ($routeProvider) {
             .when('/Actividades',{
                 controller:'controladorActividades',
                 templateUrl:'Director/actividades.html'
+<<<<<<< HEAD
             })
+=======
+            }
+                
+            )
+    
+    
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
             .otherwise({
                 redirectTo: '/'
             });

@@ -7,8 +7,13 @@ var db = require('./db');
 
 
 function listarReunion(entrada,respuesta) {
+<<<<<<< HEAD
     var sql = "select nombre,ubicacion,tematica from reunion where usuarioId=? ";
     db.query(sql,entrada.body.usuarioId,function (error, filas) {
+=======
+    var sql = "select nombre,ubicacion,tematica from reunion ";
+    db.query(sql,function (error, filas) {
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
         if (error) {
             console.log(error);
             return;
@@ -46,8 +51,13 @@ function modificarReunion(entrada, respuesta) {
     var registro = {
         nombre: entrada.body.nombre,
         ubicacion: entrada.body.ubicacion,
+<<<<<<< HEAD
         tematica: entrada.body.tematica,
         usuarioId:entrada.body.usuarioId
+=======
+        tematica: entrada.body.tematica
+
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
     };
 
     var codigo = 1;
@@ -69,8 +79,13 @@ function crearReunion(entrada, respuesta) {
     var registro = {
         nombre: entrada.body.nombre,
         ubicacion: entrada.body.ubicacion,
+<<<<<<< HEAD
         tematica: entrada.body.tematica,
         usuarioId:entrada.body.usuarioId        
+=======
+        tematica: entrada.body.tematica
+        
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
     };
     
     var sql = "insert into reunion set ?";
@@ -88,6 +103,7 @@ function crearReunion(entrada, respuesta) {
     });
 }
 
+<<<<<<< HEAD
 function buscarReunion(entrada, respuesta) {
         var nombre = [entrada.body.nombre];
         console.log(nombre);
@@ -120,10 +136,79 @@ function buscarReunion(entrada, respuesta) {
             
         });
     
+=======
+
+
+function listadoProyectos(respuesta) {
+
+    var sql = 'select id,nombre from proyecto';
+
+    //Se realiza la consulta, recibiendo por parametro filas los registros de la base de datos.         
+    db.query(sql, function (error, filas) {
+        if (error) {
+            console.log('error en el listado');
+            return;
+        }
+        var arreglo = [];
+
+        //Se recorren los registros obtenidos
+
+        for (var f = 0; f < filas.length; f++) {
+            arreglo.push({id: filas[f].id, nombre: filas[f].nombre});
+        }
+        arreglo = JSON.stringify(arreglo);
+
+
+        respuesta.writeHead(200, {'Content-Type': 'application/json'});
+
+        respuesta.end(arreglo);
+
+    });
+}
+
+function buscarReunion(entrada, respuesta) {
+    var nombre = [entrada.body.nombre];
+    console.log(nombre);
+    //Se manda el codigo en la busqueda
+
+
+
+    var sql = 'select nombre,ubicacion,tematica from reunion where nombre=?';
+
+    db.query(sql, nombre, function (error, filas) {
+        if (error) {
+            console.log(error);
+            return;
+
+        }
+        if (filas.length > 0) {
+            var object = {codigo: 1, nombre: filas[0].nombre, ubicacion: filas[0].ubicacion,
+                tematica: filas[0].tematica};
+
+            console.log(object);
+            object = JSON.stringify(object);
+            respuesta.writeHead(200, {'Content-Type': 'application/json'});
+            respuesta.end(object);
+        } else {
+            var object = {codigo: -1};
+            object = JSON.stringify(object);
+            respuesta.writeHead(200, {'Content-Type': 'application/json'});
+            respuesta.end(object);
+        }
+
+
+
+    });
+
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
 }
 
 exports.listarReunion = listarReunion;
 exports.crearReunion = crearReunion;
 exports.modificarReunion = modificarReunion;
+<<<<<<< HEAD
+=======
+exports.listadoProyectos = listadoProyectos;
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
 exports.eliminarReunion = eliminarReunion;
 exports.buscarReunion = buscarReunion;

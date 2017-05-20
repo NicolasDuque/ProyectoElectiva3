@@ -83,6 +83,10 @@ app.controller('controladorCargos', function ($scope, $window, cargoService) {
                 if (response.codigo === 1) {
 
                     
+<<<<<<< HEAD
+=======
+                    /*corra nuevamente...deje guardar la proxima*/
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
                     $scope.cargo = response;
                     console.log($scope.cargo);
 

@@ -7,10 +7,16 @@ var db = require('./db');
 
 
 function listarActividad(entrada,respuesta) {
+<<<<<<< HEAD
     
         var usuarioId = entrada.body.usuarioId;
         var sql = 'select nombre,descripcion,idIntegrante,idProyecto,inicio,fin from actividad where usuarioId=? ';
         db.query(sql,usuarioId,function (error, filas) {
+=======
+    var usuario = entrada.body.usuarioId;
+    var sql = "select nombre,descripcion,idIntegrante,idProyecto,inicio,fin from actividad where idIntegrante=? ";
+    db.query(sql,usuario,function (error, filas) {
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
         if (error) {
             console.log(error);
             return;
@@ -20,15 +26,21 @@ function listarActividad(entrada,respuesta) {
         for (var i = 0; i < filas.length; i++) {
             arreglo.push({nombre: filas[i].nombre, descripcion: filas[i].descripcion,idIntegrante:filas[i].idIntegrante,idProyecto:filas[i].idProyecto,inicio:filas[i].inicio,fin:filas[i].fin});
         }
+<<<<<<< HEAD
      
         console.log(arreglo);
+=======
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
         arreglo = JSON.stringify(arreglo);
         respuesta.writeHead(200, {'Content-Type': 'application/json'});
         respuesta.end(arreglo);
 
     });
+<<<<<<< HEAD
     
    
+=======
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
 
 }
 function eliminarActividad(pedido,respuesta){
@@ -80,8 +92,12 @@ function crearActividad(entrada, respuesta) {
         idIntegrante: entrada.body.idIntegrante,
         idProyecto: entrada.body.idProyecto,
         inicio:entrada.body.inicio,
+<<<<<<< HEAD
         fin:entrada.body.fin,
         usuarioId:entrada.body.usuarioId
+=======
+        fin:entrada.body.fin
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
     };
     var sql = "insert into actividad set ?";
      var codigo = 1;
@@ -102,12 +118,21 @@ function crearActividad(entrada, respuesta) {
 
 function listadoIntegrantes(entrada,respuesta) {
 
+<<<<<<< HEAD
 var idProyecto = entrada.body.idProyecto;
 console.log(idProyecto);
     var sql = 'select ip.id as id,r.nombre as nombre  from integrante_proyecto ip  join  registro r on ip.idIntegrante = r.id where ip.idProyecto=?';
 
     //Se realiza la consulta, recibiendo por parametro filas los registros de la base de datos.         
     db.query(sql,idProyecto,function (error, filas) {
+=======
+var usuarioId = entrada.body.usuarioId;
+console.log(usuarioId);
+    var sql = 'select ip.id as id,r.nombre as nombre  from integrante_proyecto ip  join  registro r on ip.idIntegrante = r.id ';
+
+    //Se realiza la consulta, recibiendo por parametro filas los registros de la base de datos.         
+    db.query(sql,usuarioId,function (error, filas) {
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
         if (error) {
             console.log(error);
             return;

@@ -16,7 +16,13 @@ app.controller('controladorActividades', function ($scope, $window, actividadSer
 
 
     /*info*/
+<<<<<<< HEAD
     $scope.actividad = "";   
+=======
+    $scope.actividad = "";
+
+    
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
 
 
     $scope.listadoActividad;
@@ -29,7 +35,11 @@ app.controller('controladorActividades', function ($scope, $window, actividadSer
         
         if (form.$valid) {
             
+<<<<<<< HEAD
             
+=======
+            if($scope.actividad.inicio>$scope.actividad.fin){
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
                 actividadService.guardarActividad($scope.actividad).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if (response.codigo === 1) {
@@ -41,7 +51,13 @@ app.controller('controladorActividades', function ($scope, $window, actividadSer
                     alert("ACTIVIDAD YA SE ENCUENTRA REGISTRADO!");
                 }
             });
+<<<<<<< HEAD
             
+=======
+            }else{
+                alert("error en las fechas");
+            }
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
             
             
             
@@ -53,6 +69,10 @@ app.controller('controladorActividades', function ($scope, $window, actividadSer
     $scope.modificarActividad = function (form) {
         if (form.$valid) {
             
+<<<<<<< HEAD
+=======
+            if($scope.actividad.inicio>$scope.actividad.fin){
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
                  
             /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
              * el cual esta asociado a los input*/
@@ -65,12 +85,21 @@ app.controller('controladorActividades', function ($scope, $window, actividadSer
                 } else {
                     alert("ERROR AL MODIFICAR LOS DATOS");
                 }
+<<<<<<< HEAD
             });           
+=======
+            });
+            }else{
+                alert("error en las fechas");
+            }
+           
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
         } else {
             alert("debe diligenciar toda la informacion!");
         }
     };
 
+<<<<<<< HEAD
    
 
 
@@ -81,13 +110,30 @@ app.controller('controladorActividades', function ($scope, $window, actividadSer
         actividadService.listaActividad().then(function (response) {        
             $scope.listadoActividad = response;
             
+=======
+    
+
+
+   $scope.listarActividad = function () {
+
+        actividadService.listarActividad().then(function (response) {
+
+
+
+        
+            $scope.listadoActividad = response;
+
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
         });
 
     };
     
+<<<<<<< HEAD
     
     
     
+=======
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
     $scope.eliminarActividad = function () {
 
         
@@ -117,10 +163,18 @@ app.controller('controladorActividades', function ($scope, $window, actividadSer
         salida.idProyecto=this.obj.idProyecto;
         salida.inicio = new Date(this.obj.inicio);
         salida.fin = new Date(this.obj.fin);
+<<<<<<< HEAD
         $scope.actividad = salida;
         
         $scope.listarProyectos();
         $scope.listarIntegrantes();
+=======
+        
+        
+        
+        
+        $scope.actividad = salida;
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
     };
 
 
@@ -132,18 +186,30 @@ app.controller('controladorActividades', function ($scope, $window, actividadSer
          * el cual esta asociado a los input*/
         actividadService.listarProyectos().then(function (response) {
             $scope.listadoProyectos = response;
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
         });
 
     };
 
 
     $scope.listarIntegrantes = function () {
+<<<<<<< HEAD
        var idProyecto = $scope.actividad.idProyecto;
 
         /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
          * el cual esta asociado a los input*/
         actividadService.listarIntegrantes(idProyecto).then(function (response) {
+=======
+
+
+        /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+         * el cual esta asociado a los input*/
+        actividadService.listarIntegrantes().then(function (response) {
+>>>>>>> 5e4c33e0c7b2e39354da1b25ef6997151ff359ad
             $scope.listadoIntegrantes = response;
 
         });
